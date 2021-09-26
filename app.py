@@ -4,7 +4,7 @@ from flask.globals import session
 from flask_wtf import FlaskForm
 from flask_bootstrap import Bootstrap
 from wtforms import StringField, IntegerField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Optional, NumberRange
 import os
 
 SECRET_KEY = os.urandom(32)
@@ -14,14 +14,14 @@ class QuizForm(FlaskForm):
 
     naam = StringField("Wat is je naam?", validators=[DataRequired()])
     aantal = IntegerField("Hoeveel sommen wil je maken?",
-                          validators=[DataRequired()])
+                          validators=[DataRequired(),NumberRange(1,100)])
     submit = SubmitField("Beginnen")
 
 
 class ExerciseForm(FlaskForm):
     antwoord = IntegerField("Wat is het antwoord?",
                             validators=[DataRequired()])
-    rest = IntegerField("Wat is het rest getal?")
+    rest = IntegerField("Wat is het rest getal?", validators=[Optional()])
     submit = SubmitField("Invoeren")
 
 
@@ -47,9 +47,13 @@ def index():
 
 @app.route('/results')
 def results():
-    sommen_goed = [ses for ses in session["sommen"] if ses["antwoord_correct"]]
-    sommen_fout = [ses for ses in session["sommen"]
-                   if ses["antwoord_correct"] == False and ses["antwoord"] != 0]
+    if "sommen" in session:
+        sommen_goed = [ses for ses in session["sommen"] if ses["antwoord_correct"]]
+        sommen_fout = [ses for ses in session["sommen"]
+                    if ses["antwoord_correct"] == False and ses["antwoord"] != 0]
+    else: 
+        sommen_fout = []
+        sommen_goed = []
     return render_template('results.html', sommen_goed=sommen_goed, sommen_fout=sommen_fout, aantal_goed = len(sommen_goed))
 
 
