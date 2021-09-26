@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <center>
+        {% if sommen_goed %}
+        <h3>Je had de volgende sommen goed!</h3>
+        {% endif %}
+    </center>
+</div>
+<br>
+<br>
+<div class="container">
+    <div class="row align-items-center justify-content-center"></div>
+    {% for som in sommen_goed %}
+
+    <div class="card">
+        <div class="card-header">
+            {{ som["teller"] }} gedeeld door {{ som["noemer"] }}
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>Jij gaf als antwoord {{ som["antwoord"] }}, rest {{ som["antwoord_rest"] }}. Dat was het juiste antwoord!</p>
+            </blockquote>
+        </div>
+
+    </div>
+    <br>
+
+
+
+    {% endfor %}
+</div>
+
+<div class="container">
+    <center>
+        {% if sommen_fout %}
+        <h3>Deze sommen waren fout!</h3>
+        {% endif %}
+    </center>
+</div>
+<br>
+<br>
+<div class="container">
+    <div class="row align-items-center justify-content-center"></div>
+
+    {% for som in sommen_fout %}
+
+    <div class="card">
+        <div class="card-header">
+            {{ som["teller"] }} gedeeld door {{ som["noemer"] }}
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>Het juiste antwoord hierop was {{ som["resultaat"] }}, rest {{ som["rest"] }}.</p>
+                <p>Jij gaf als antwoord {{ som["antwoord"] }}, rest {{ som["antwoord_rest"] }}.</p>
+            </blockquote>
+        </div>
+
+    </div>
+    <br>
+
+
+
+    {% endfor %}
+</div>
+
+{% endblock %}

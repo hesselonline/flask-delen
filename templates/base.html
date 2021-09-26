@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="nl" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Delen!!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+
+        <a class="navbar-brand px-2" href="{{url_for('index')}}">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('results')}}">Resultaten <span class="badge bg-success">{{aantal_goed}}</span></a>
+            </li>
+        </ul>
+    </nav>
+    </div>
+
+    {% for mess in get_flashed_messages(True) %}
+    {% if mess[0] == "success" %}
+    <div class="alert alert-success alert-dismissible fade show" role=alert>
+        {% else %}
+        <div class="alert alert-danger alert-dismissible fade show" role=alert>
+            {% endif %}
+            <button type="button" class="fade close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{mess[1]}}
+        </div>
+        {% endfor %}
+
+        {% block content %}
+
+        {% endblock %}
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+
+</body>
+
+</html>

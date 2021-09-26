@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+    <div class="container">
+        <center>
+        <h3>Welkom bij het grote deelspel!!</h3>
+        Wil je nu beginnen met spelen?
+        </center>
+    </div>
+        <br>
+        <br>
+        <div class=container"><br>
+        <div class="row align-items-center justify-content-center">
+        <div class="col-md-4">
+          <form method="post">
+            {{ form.hidden_tag()}}
+            {{ wtf.form_field(form.naam, class='form-control')}}
+                <br>
+                {{ wtf.form_field(form.aantal, class='form-control')}}
+            <br>
+            <center>
+                {{ wtf.form_field(form.submit, class="btn btn-primary")}}
+            </center>
+       </form>
+        </div>
+        </div>
+        </div>
+    
+
+
+{% endblock %}
