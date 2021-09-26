@@ -15,14 +15,14 @@ class QuizForm(FlaskForm):
     naam = StringField("Wat is je naam?", validators=[DataRequired()])
     aantal = IntegerField("Hoeveel sommen wil je maken?",
                           validators=[DataRequired()])
-    submit = SubmitField("Submit")
+    submit = SubmitField("Beginnen")
 
 
 class ExerciseForm(FlaskForm):
     antwoord = IntegerField("Wat is het antwoord?",
                             validators=[DataRequired()])
     rest = IntegerField("Wat is het rest getal?")
-    submit = SubmitField("Submit")
+    submit = SubmitField("Invoeren")
 
 
 app = Flask(__name__)
