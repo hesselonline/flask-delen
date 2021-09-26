@@ -4,7 +4,7 @@
 <div class="container">
     <center>
         {% if sommen_goed %}
-        <h3>Je had de volgende sommen goed!</h3>
+        <h3>Je had de volgende sommen goed:</h3>
         {% endif %}
     </center>
 </div>
@@ -15,10 +15,10 @@
     {% for som in sommen_goed %}
 
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-success text-white">
             {{ som["teller"] }} gedeeld door {{ som["noemer"] }}
         </div>
-        <div class="card-body">
+        <div class="card-body bg-success text-white">
             <blockquote class="blockquote mb-0">
                 <p>Jij gaf als antwoord {{ som["antwoord"] }}, rest {{ som["antwoord_rest"] }}. Dat was het juiste antwoord!</p>
             </blockquote>
@@ -35,7 +35,7 @@
 <div class="container">
     <center>
         {% if sommen_fout %}
-        <h3>Deze sommen waren fout!</h3>
+        <h3>Deze sommen waren niet goed:</h3>
         {% endif %}
     </center>
 </div>
@@ -47,10 +47,10 @@
     {% for som in sommen_fout %}
 
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-secondary text-white">
             {{ som["teller"] }} gedeeld door {{ som["noemer"] }}
         </div>
-        <div class="card-body">
+        <div class="card-body bg-secondary text-white">
             <blockquote class="blockquote mb-0">
                 <p>Het juiste antwoord hierop was {{ som["resultaat"] }}, rest {{ som["rest"] }}.</p>
                 <p>Jij gaf als antwoord {{ som["antwoord"] }}, rest {{ som["antwoord_rest"] }}.</p>

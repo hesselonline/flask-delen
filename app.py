@@ -32,8 +32,10 @@ Bootstrap(app)
 
 @app.route('/', methods=["GET", "POST"])
 def index():
+    
     form = QuizForm()
     if form.validate_on_submit():
+        session.clear()
         session["naam"] = form.naam.data
         session["aantal"] = form.aantal.data
         session["i"] = 0

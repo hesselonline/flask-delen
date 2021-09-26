@@ -25,18 +25,7 @@
     </nav>
     </div>
 
-    {% for mess in get_flashed_messages(True) %}
-    {% if mess[0] == "success" %}
-    <div class="alert alert-success alert-dismissible fade show" role=alert>
-        {% else %}
-        <div class="alert alert-danger alert-dismissible fade show" role=alert>
-            {% endif %}
-            <button type="button" class="fade close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{mess[1]}}
-        </div>
-        {% endfor %}
+
 
         {% block content %}
 
