@@ -8,32 +8,69 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
+{% if avatar %}
 
-<body>
+{% if avatar == "happy" %}
+<style>
+    body {
+        background: url('static/happy_stego.png') no-repeat center bottom fixed, url('/static/footer_website.png') no-repeat center bottom fixed;
+    }
+</style>
+
+{% elif avatar == "angry" %}
+<style>
+    body {
+        background: url('static/angry_trex.png') no-repeat center bottom fixed, url('/static/footer_website.png') no-repeat center bottom fixed;
+    }
+</style>
+
+{% endif %}
+
+{% else %}
+<style>
+    body {
+        background: url('/static/footer_website.png') no-repeat center bottom fixed;
+    }
+</style>
+
+{% endif %}
+
+<body overflow-x: hidden;>
+
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
 
         <a class="navbar-brand px-2" href="{{url_for('index')}}"><img src="/static/logo.png" alt="" width="40"
                 height="40"></a>
         <ul class="navbar-nav">
+            {% if naam %}
             <li class="nav-item">
                 <a class="nav-link" href="{{url_for('results')}}">Resultaten <span
                         class="badge bg-success">{{aantal_goed}}</span></a>
             </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('credits')}}">Credits</a>
+            </li>
         </ul>
     </nav>
-    </div>
 
+    <div class="container-fluid" overflow-x: hidden;>
 
 
     {% block content %}
 
     {% endblock %}
 
+    
+
+    </div>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous"></script>
-
 </body>
 
 </html>

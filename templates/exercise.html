@@ -1,12 +1,11 @@
-{% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
-{% block content %}
+{% extends "base.html" %} {% import "bootstrap/wtf.html" as
+wtf %}
 
-{% for mess in get_flashed_messages(True) %}
-{% if mess[0] == "success" %}
-<div class="alert alert-success alert-dismissible fade show" role=alert>
+{% block content %} {% for mess in
+get_flashed_messages(True) %} {% if mess[0] == "success" %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
     {% else %}
-    <div class="alert alert-danger alert-dismissible fade show" role=alert>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {% endif %}
         <button type="button" class="fade close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -17,28 +16,33 @@
 
     <div class="container">
         <center>
-            <h3>Hoi {{naam}}, vraag {{index}} van {{aantal}}!</h2>
-                <br>
-                <h5>Hoeveel is {{teller}} gedeeld door {{noemer}}?</h5>
+            <h5>Vraag {{index}} van {{aantal}}.</h5>
+            <br />
+            <h3>
+                Hoeveel is {{som["teller"]}} {{som["tekst"]}}
+                {{som["noemer"]}}?
+            </h3>
         </center>
     </div>
-    <div class=container"><br>
+    <div class=container"><br />
         <div class="row align-items-center justify-content-center">
             <div class="col-md-4">
                 <form method="post">
-                    {{ form.hidden_tag()}}
-                    {{ wtf.form_field(form.antwoord, class='form-control')}}
-                    <br>
-                    {{ wtf.form_field(form.rest, class='form-control')}}
-                    <br>
+                    {{ form.hidden_tag()}} {{
+                    wtf.form_field(form.antwoord, class='form-control',
+                    autofocus=true)}}
+                    <br />
+                    {% if som["type"] == "d" %} {{
+                    wtf.form_field(form.rest, class='form-control')}}
+                    <br />
+                    {% endif %}
                     <center>
-                        {{ wtf.form_field(form.submit, class="btn btn-success")}}
+                        {{ wtf.form_field(form.submit, class="btn
+                        btn-success")}}
                     </center>
                 </form>
             </div>
         </div>
     </div>
-
-
 
     {% endblock %}
