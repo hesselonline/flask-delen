@@ -118,5 +118,5 @@ def genereer_sommen(aantal, som_type, som_difficulty):
 
 def controleer_som(som: dict, antwoord: int, antwoord_rest: int = None):
     return som["resultaat"] == antwoord and (
-        antwoord_rest == None or antwoord_rest == som["rest"]
+        (antwoord_rest == None and som["rest"] == 0) or antwoord_rest == som["rest"]
     )

@@ -27,11 +27,23 @@
 {% endif %}
 
 {% else %}
+
+{% if page == "credits" %}
+
+<style>
+    body {
+        background: url('static/angry_trex.png') no-repeat left bottom fixed, url('static/happy_stego.png') no-repeat right bottom fixed, url('/static/footer_website.png') no-repeat center bottom fixed;
+    }
+</style>
+{% else %}
+
 <style>
     body {
         background: url('/static/footer_website.png') no-repeat center bottom fixed;
     }
 </style>
+
+{% endif %}
 
 {% endif %}
 
@@ -58,11 +70,11 @@
     <div class="container-fluid" overflow-x: hidden;>
 
 
-    {% block content %}
+        {% block content %}
 
-    {% endblock %}
+        {% endblock %}
 
-    
+
 
     </div>
 

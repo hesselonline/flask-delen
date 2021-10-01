@@ -2,8 +2,16 @@
 
 <div class="container">
   <center>
-    <h3>Hoi {{naam}}, dit zijn je resultaten van deze rekenquiz!</h3>
-    {% if sommen_goed %}
+    <h3>
+      Hoi {{naam}}, dit zijn je resultaten van deze
+      rekenquiz!
+    </h3>
+    {% if doorlooptijd %}
+    <h4>
+      Je bent {{doorlooptijd}} seconden bezig geweest met deze
+      sommen.
+    </h4>
+    {% endif %} {% if sommen_goed %}
     <h4>Je had de volgende sommen goed:</h4>
     {% endif %}
   </center>
@@ -61,8 +69,7 @@
       <blockquote class="blockquote mb-0">
         <p>
           Het juiste antwoord hierop was {{ som["resultaat"]
-          }}{% if
-          som["type"] == "d" %}, rest {{
+          }}{% if som["type"] == "d" %}, rest {{
           som["antwoord_rest"] }}{% endif %}.
         </p>
         <p>

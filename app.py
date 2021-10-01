@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask.globals import session
 from flask_bootstrap import Bootstrap
 import os
+import time
 from utils.flash import flash_som_resultaat
 from utils.forms import QuizForm, ExerciseForm
 
@@ -27,13 +28,16 @@ def index():
         session["sommen"] = genereer_sommen(
             form.aantal.data, form.som_type.data, form.som_difficulty.data
         )
+        session["start_tijd"] = time.time()
+        session["eind_tijd"] = None
         return redirect(url_for("exercise"))
 
-    return render_template("index.html", form=form, aantal_goed=0)
+    return render_template("index.html", page="index", form=form, aantal_goed=0)
 
 
 @app.route("/results")
 def results():
+    doorlooptijd = int((session["eind_tijd"] or time.time()) - session["start_tijd"])
     if "sommen" in session:
         sommen_goed = [ses for ses in session["sommen"] if ses["antwoord_correct"]]
         sommen_fout = [
@@ -46,17 +50,18 @@ def results():
         sommen_goed = []
     return render_template(
         "results.html",
+        page="results",
         naam=session["naam"],
+        doorlooptijd=doorlooptijd,
         sommen_goed=sommen_goed,
         sommen_fout=sommen_fout,
         aantal_goed=len(sommen_goed),
     )
 
+
 @app.route("/credits")
 def credits():
-    return render_template(
-        "credits.html"
-    )
+    return render_template("credits.html", page="credits")
 
 
 @app.route("/exercise", methods=["GET", "POST"])
@@ -66,7 +71,7 @@ def exercise():
     i = session["i"]
     sommen = session["sommen"]
     sommen_goed = [ses for ses in session["sommen"] if ses["antwoord_correct"]]
-    
+
     form = ExerciseForm()
     if form.validate_on_submit():
         sommen[i]["antwoord"] = form.antwoord.data
@@ -87,21 +92,23 @@ def exercise():
             sommen[i]["type"],
         )
 
-        if  session["i"] +1 < session["aantal"]:
+        if session["i"] + 1 < session["aantal"]:
             session["i"] += 1
             return redirect(url_for("exercise"))
 
         else:
+            session["eind_tijd"] = time.time()
             return redirect(url_for("results"))
 
     return render_template(
         "exercise.html",
+        page="exercise",
         form=form,
         som=sommen[i],
         naam=naam,
         aantal=aantal,
         index=i + 1,
-        avatar = session["avatar"],
+        avatar=session["avatar"],
         aantal_goed=len(sommen_goed),
     )
 
