@@ -18,6 +18,7 @@ class Som:
         self.tekst = tekst_translate[som_type]
         self.resultaat = bereken_resultaat(teller, noemer, som_type)
         self.rest = bereken_rest(teller, noemer, som_type)
+        self.id = str(teller)+'_'+str(noemer)
 
 
 def bereken_resultaat(teller, noemer, som_type):

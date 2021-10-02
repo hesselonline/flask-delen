@@ -11,10 +11,14 @@ wtf %}
                             {{som["tekst"]}}
                             {{som["noemer"]}}?</span></h1>
 
-           </div>
+            </div>
+
             <form method="post">
-                {{ wtf.form_field(form.submit, class="btn btn-primary btn-lg mb-5", tabindex="5")}}
         </div>
+        <div class="progress">
+            <div class="progress-bar bg-primary" role="progressbar" {{'style=width:' +percentage_style + '%' }}></div>
+        </div>
+        <br>
     </div>
 </section>
 {% for mess in
@@ -29,22 +33,30 @@ get_flashed_messages(True) %} {% if mess[0] == "success" %}
         {{mess[1]}}
     </div>
     {% endfor %}
-    <div class=container"><br />
-        <div class="d-md-flex align-items-center justify-content-center">
-            <div class="col-md-4">
-                {{ form.hidden_tag()}} {{
-                wtf.form_field(form.antwoord, class='form-control',
-                autofocus=true)}}
-                <br />
-                {% if som["type"] == "d" %} {{
-                wtf.form_field(form.rest, class='form-control')}}
-                {% endif %}
-                </form>
+    <section class="p-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md">
+                </div>
+                <div class="col-md px-8">
+                    <div class="card mx-5" style="height: 15rem;">
+                        <div class="card-body text-center">
+                            {{ form.hidden_tag()}} {{
+                            wtf.form_field(form.antwoord, class='form-control',
+                            autofocus=true, size=30)}}
+                            <br />
+                            {% if som["type"] == "d" %} {{
+                            wtf.form_field(form.rest, class='form-control', size=30)}}
+                            {% endif %}
+                            <br>
+                            {{ wtf.form_field(form.submit, class="btn btn-primary btn-lg mb-5", tabindex="5")}}
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="progress fixed-bottom m-2">
-            <div class="progress-bar" role="progressbar" {{'style=width:' +percentage_style + '%'}}></div>
-        </div>
-    </div>
 
-    {% endblock %}
+</div>
+
+{% endblock %}

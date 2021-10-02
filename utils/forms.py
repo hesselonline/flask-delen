@@ -16,4 +16,4 @@ class ExerciseForm(FlaskForm):
     antwoord = IntegerField("Wat is het antwoord?",
                             validators=[DataRequired()])
     rest = IntegerField("Wat is het rest getal?", validators=[Optional()])
-    submit = SubmitField("Invoeren")
+    submit = SubmitField("Controleer")

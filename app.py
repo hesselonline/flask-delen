@@ -28,6 +28,10 @@ def index():
 
 @app.route("/quiz", methods=["GET", "POST"])
 def quiz():
+    try: 
+        session["naam"]
+    except(KeyError):
+        return redirect(url_for("index"))
 
     form = QuizForm()
     if form.validate_on_submit():
@@ -48,6 +52,11 @@ def quiz():
 
 @app.route("/results")
 def results():
+    try: 
+        session["naam"]
+    except(KeyError):
+        return redirect(url_for("index"))
+
     doorlooptijd = int((session["eind_tijd"] or time.time()) - session["start_tijd"])
     if "sommen" in session:
         sommen_goed = [ses for ses in session["sommen"] if ses["antwoord_correct"]]
@@ -76,7 +85,13 @@ def credits():
 
 
 @app.route("/exercise", methods=["GET", "POST"])
+
 def exercise():
+    try: 
+        session["naam"]
+    except(KeyError):
+        return redirect(url_for("index"))
+
     naam = session["naam"]
     percentage_style = str(int((session["i"] / session["aantal"]) * 100))
     aantal = session["aantal"]
