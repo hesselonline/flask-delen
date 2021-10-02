@@ -1,18 +1,65 @@
 {% extends "base.html" %} {% import "bootstrap/wtf.html" as
 wtf %}
+{% include "dino_background_style.html" %}
 {% block content %}
-<div class="container">
-    <center>
-        <h3>Credits</h3>
-        <p>
-            Game & website: <a href="https://github.com/hesselonline">Hessel van Es</a> 
-            <br>
-            Background Image: <a href="https://www.freepik.com/vectors/background">brgfx -
-                www.freepik.com</a>
-            <br>
-            Dinosaur Images: <a href="https://www.freepik.com/vectors/colorful">pikisuperstar -
-                www.freepik.com</a>
-        </p>
-    </center>
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+    <div class="container">
+        <div class="d-sm-flex align-d-items-center justify-content-between">
+            <div>
+                <form method="post">
+                    <h1><span class="text-warning">Credits</span></h1>
+                    <p class="lead my-4">Gebruikte afbeeldingen en source code zijn via onderstaande links te vinden.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container pt-3">
+<div class="accordion" id="accordionCredits">
+    <div class="accordion-item">
+        <h2 class="accordion-header  btn-success" id="accHeaderGame">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#accGame">
+                Game & website
+            </button>
+        </h2>
+        <div id="accGame" class="accordion-collapse collapse" data-bs-parent="#accordionGood">
+            <div class="accordion-body">Gemaakt door Hessel van Es, bron code beschikbaar op <a href="https://github.com/hesselonline">github.com</a></div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header  btn-success" id="accHeaderBackground">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#accBackground">
+                Background Image                
+            </button>
+        </h2>
+        <div id="accBackground" class="accordion-collapse collapse" data-bs-parent="#accordionGood">
+            <div class="accordion-body">Door brgfx, beschikbaar op <a href="https://www.freepik.com/vectors/background">www.freepik.com</a></div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header  btn-success" id="accHeaderDinosaur">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#accDinosaur">
+                Dinosaurs               
+            </button>
+        </h2>
+        <div id="accDinosaur" class="accordion-collapse collapse" data-bs-parent="#accordionGood">
+            <div class="accordion-body">Door pikisuperstar, Besschikbaar op <a href="https://www.freepik.com/vectors/colorful">www.freepik.com</a></div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header  btn-success" id="accHeaderMath">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#accMath">
+                Math Image               
+            </button>
+        </h2>
+        <div id="accMath" class="accordion-collapse collapse" data-bs-parent="#accordionGood">
+            <div class="accordion-body">Beschikbaar op <a href='https://www.freepik.com/vectors/background'>www.freepik.com</a></div>
+        </div>
+    </div>
 </div>
+</div>
+
 {% endblock %}

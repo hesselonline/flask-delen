@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% include "dino_background_style.html" %}
+{% block content %}
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+    <div class="container">
+        <div class="d-sm-flex align-d-items-center justify-content-between">
+            <div>
+                <form method="post">
+                <h1>Hoi <span class="text-warning">{{ naam }}</span>, start nu met rekenen!</h1>               
+            </div>
+            {{ wtf.form_field(form.submit, class="btn btn-primary btn-lg mb-5", tabindex="5")}}
+        </div>
+    </div>
+</section>
+<br>
+<br>
+    <div class="d-md-flex align-items-center justify-content-center">
+        <div class="col-md-4">
+            
+                {{ form.hidden_tag()}}
+                {{ wtf.form_field(form.aantal, class='form-control', tabindex="1")}}
+                <br>
+                {{ wtf.form_field(form.som_type, class='form-control', tabindex="2")}}
+                <br>
+                {{ wtf.form_field(form.som_difficulty, class='form-control', tabindex="3")}}
+                <br>
+                
+                   
+               
+            </form>
+        </div>
+    
+</div>
+
+
+
+
+{% endblock %}

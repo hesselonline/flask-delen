@@ -1,7 +1,23 @@
 {% extends "base.html" %} {% import "bootstrap/wtf.html" as
 wtf %}
+{% include "dino_background_style.html" %}
+{% block content %}
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+    <div class="container">
+        <div class="d-sm-flex align-d-items-center justify-content-between">
+            <div>
+                <form method="post">
+                    <h1>Hoi {{ naam }}, hoeveel is <span class="text-warning"> {{som["teller"]}}
+                            {{som["tekst"]}}
+                            {{som["noemer"]}}?</span></h1>
 
-{% block content %} {% for mess in
+           </div>
+            <form method="post">
+                {{ wtf.form_field(form.submit, class="btn btn-primary btn-lg mb-5", tabindex="5")}}
+        </div>
+    </div>
+</section>
+{% for mess in
 get_flashed_messages(True) %} {% if mess[0] == "success" %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     {% else %}
@@ -13,35 +29,21 @@ get_flashed_messages(True) %} {% if mess[0] == "success" %}
         {{mess[1]}}
     </div>
     {% endfor %}
-
-    <div class="container">
-        <center>
-            <h5>Vraag {{index}} van {{aantal}}.</h5>
-            <br />
-            <h3>
-                Hoeveel is {{som["teller"]}} {{som["tekst"]}}
-                {{som["noemer"]}}?
-            </h3>
-        </center>
-    </div>
     <div class=container"><br />
-        <div class="row align-items-center justify-content-center">
+        <div class="d-md-flex align-items-center justify-content-center">
             <div class="col-md-4">
-                <form method="post">
-                    {{ form.hidden_tag()}} {{
-                    wtf.form_field(form.antwoord, class='form-control',
-                    autofocus=true)}}
-                    <br />
-                    {% if som["type"] == "d" %} {{
-                    wtf.form_field(form.rest, class='form-control')}}
-                    <br />
-                    {% endif %}
-                    <center>
-                        {{ wtf.form_field(form.submit, class="btn
-                        btn-success")}}
-                    </center>
+                {{ form.hidden_tag()}} {{
+                wtf.form_field(form.antwoord, class='form-control',
+                autofocus=true)}}
+                <br />
+                {% if som["type"] == "d" %} {{
+                wtf.form_field(form.rest, class='form-control')}}
+                {% endif %}
                 </form>
             </div>
+        </div>
+        <div class="progress fixed-bottom m-2">
+            <div class="progress-bar" role="progressbar" {{'style=width:' +percentage_style + '%'}}></div>
         </div>
     </div>
 

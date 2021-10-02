@@ -18,10 +18,19 @@ Bootstrap(app)
 @app.route("/", methods=["GET", "POST"])
 def index():
 
+    if request.method == "POST":
+        session.clear()
+        session["naam"] = request.form.get("naam")
+        return redirect(url_for("quiz"))
+
+    return render_template("index.html", page="index", aantal_goed=0)
+
+
+@app.route("/quiz", methods=["GET", "POST"])
+def quiz():
+
     form = QuizForm()
     if form.validate_on_submit():
-        session.clear()
-        session["naam"] = form.naam.data
         session["aantal"] = form.aantal.data
         session["i"] = 0
         session["avatar"] = None
@@ -32,7 +41,9 @@ def index():
         session["eind_tijd"] = None
         return redirect(url_for("exercise"))
 
-    return render_template("index.html", page="index", form=form, aantal_goed=0)
+    return render_template(
+        "quiz.html", page="quiz", naam=session["naam"], form=form, aantal_goed=0
+    )
 
 
 @app.route("/results")
@@ -67,6 +78,7 @@ def credits():
 @app.route("/exercise", methods=["GET", "POST"])
 def exercise():
     naam = session["naam"]
+    percentage_style = str(int((session["i"] / session["aantal"]) * 100))
     aantal = session["aantal"]
     i = session["i"]
     sommen = session["sommen"]
@@ -107,6 +119,7 @@ def exercise():
         som=sommen[i],
         naam=naam,
         aantal=aantal,
+        percentage_style=percentage_style,
         index=i + 1,
         avatar=session["avatar"],
         aantal_goed=len(sommen_goed),
@@ -119,4 +132,4 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

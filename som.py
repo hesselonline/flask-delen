@@ -59,24 +59,24 @@ def genereer_sommen(aantal, som_type, som_difficulty):
             "3": {"teller": {"min": 1, "max": 10}, "noemer": {"min": 1, "max": 20}},
         },
         "s": {
-            "1": {"teller": {"min": 10, "max": 100}, "noemer": {"min": 1, "max": 10}},
+            "1": {"teller": {"min": 1, "max": 10}, "noemer": {"min": 1, "max": 10}},
             "2": {
-                "teller": {"min": 100, "max": 1000},
+                "teller": {"min": 10, "max": 100},
                 "noemer": {"min": 10, "max": 100},
             },
             "3": {
-                "teller": {"min": 1000, "max": 10000},
+                "teller": {"min": 100, "max": 1000},
                 "noemer": {"min": 100, "max": 1000},
             },
         },
         "a": {
-            "1": {"teller": {"min": 10, "max": 100}, "noemer": {"min": 1, "max": 100}},
+            "1": {"teller": {"min": 1, "max": 10}, "noemer": {"min": 1, "max": 10}},
             "2": {
-                "teller": {"min": 100, "max": 1000},
+                "teller": {"min": 10, "max": 100},
                 "noemer": {"min": 10, "max": 100},
             },
             "3": {
-                "teller": {"min": 1000, "max": 10000},
+                "teller": {"min": 100, "max": 1000},
                 "noemer": {"min": 100, "max": 1000},
             },
         },
@@ -89,24 +89,28 @@ def genereer_sommen(aantal, som_type, som_difficulty):
                 return random.choice(["s", "a"])
             else:
                 return som_type
+        
+        teller = random.randint(
+                difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
+                    "min"
+                ],
+                difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
+                    "max"
+                ],
+            )
+        noemer = random.randint(
+                difficulty_translate[som_type_rand(som_type)][som_difficulty]["noemer"][
+                    "min"
+                ],
+                min(teller,difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
+                    "max"
+                ])
+            )
 
         som = Som(
-            random.randint(
-                difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
-                    "min"
-                ],
-                difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
-                    "max"
-                ],
-            ),
-            random.randint(
-                difficulty_translate[som_type_rand(som_type)][som_difficulty]["noemer"][
-                    "min"
-                ],
-                difficulty_translate[som_type_rand(som_type)][som_difficulty]["noemer"][
-                    "max"
-                ],
-            ),
+            teller
+            ,
+            noemer,
             som_type_rand(som_type),
         ).__dict__
         som_lijst.append(som)

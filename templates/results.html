@@ -1,88 +1,73 @@
 {% extends "base.html" %} {% block content %}
+{% include "dino_background_style.html" %}
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+    <div class="container">
+        <div class="d-sm-flex align-d-items-center justify-content-between">
+            <div>
+                <form method="post">
+                    <h1>Hoi <span class="text-warning"> {{ naam }} </span>, dit zijn je resultaten van deze
+                        rekenquiz!</h1>
+                    {% if doorlooptijd %}
+                    <p class="lead my-4">Je bent {{doorlooptijd}} seconden bezig geweest met deze
+                        sommen.</p>
+                    {% endif %}
 
-<div class="container">
-  <center>
-    <h3>
-      Hoi {{naam}}, dit zijn je resultaten van deze
-      rekenquiz!
-    </h3>
-    {% if doorlooptijd %}
-    <h4>
-      Je bent {{doorlooptijd}} seconden bezig geweest met deze
-      sommen.
-    </h4>
-    {% endif %} {% if sommen_goed %}
-    <h4>Je had de volgende sommen goed:</h4>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container pt-3">
+    {% if sommen_goed %}
+
+    <div class="accordion" id="accordionGood">
+        {% for som in sommen_goed %}
+        <div class="accordion-item">
+            <h2 class="accordion-header  btn-success" id="HeadSom{{som['resultaat']}}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#Som{{som['resultaat']}}">
+                    <div class="container pl-4">
+                        Goed: {{ som["teller"] }} {{som["tekst"]}} {{ som["noemer"]
+                        }}</div> <span class="badge bg-success m-2">Goed</span>
+                </button>
+            </h2>
+            <div id="Som{{som['resultaat']}}" class="accordion-collapse collapse" data-bs-parent="#accordionGood">
+                <div class="accordion-body">Jij gaf als antwoord {{ som["antwoord"] }}{% if
+                    som["type"] == "d" %}, rest {{
+                    som["antwoord_rest"] }}{% endif %}. Dat was het juiste antwoord!</div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    <br>
     {% endif %}
-  </center>
-</div>
-<br />
-<br />
-<div class="container">
-  <div
-    class="row align-items-center justify-content-center"
-  ></div>
-  {% for som in sommen_goed %}
+    
 
-  <div class="card">
-    <div class="card-header bg-success text-white">
-      {{ som["teller"] }} {{som["tekst"]}} {{ som["noemer"]
-      }}
-    </div>
-    <div class="card-body bg-success text-white">
-      <blockquote class="blockquote mb-0">
-        <p>
-          Jij gaf als antwoord {{ som["antwoord"] }}{% if
-          som["type"] == "d" %}, rest {{
-          som["antwoord_rest"] }}{% endif %}. Dat was het
-          juiste antwoord!
-        </p>
-      </blockquote>
-    </div>
-  </div>
-  <br />
-
-  {% endfor %}
-</div>
-
-<div class="container">
-  <center>
     {% if sommen_fout %}
-    <h4>Deze sommen waren niet goed:</h4>
-    {% endif %}
-  </center>
-</div>
-<br />
-<br />
-<div class="container">
-  <div
-    class="row align-items-center justify-content-center"
-  ></div>
 
-  {% for som in sommen_fout %}
+    <div class="accordion" id="accordionGood">
+        {% for som in sommen_fout %}
+        <div class="accordion-item">
+            <h2 class="accordion-header  btn-success" id="HeadSom{{som['resultaat']}}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#Som{{som['resultaat']}}">
+                    <div class="container pl-4">
+                        Goed: {{ som["teller"] }} {{som["tekst"]}} {{ som["noemer"]
+                        }}</div> <span class="badge bg-danger m-2">Fout</span>
+                </button>
+            </h2>
+            <div id="Som{{som['resultaat']}}" class="accordion-collapse collapse" data-bs-parent="#accordionGood">
+                <div class="accordion-body"><strong>Het juiste antwoord hierop was {{ som["resultaat"]
+                        }}{% if som["type"] == "d" %}, rest {{
+                        som["antwoord_rest"] }}{% endif %}.</strong> Jij gaf als antwoord {{ som["antwoord"] }}{% if
+                    som["type"] == "d" %}, rest {{
+                    som["antwoord_rest"] }}{% endif %}.</div>
+            </div>
+        </div>
 
-  <div class="card">
-    <div class="card-header bg-secondary text-white">
-      {{ som["teller"] }} gedeeld door {{ som["noemer"] }}
+        {% endfor %}
+
+        {% endif %}
     </div>
-    <div class="card-body bg-secondary text-white">
-      <blockquote class="blockquote mb-0">
-        <p>
-          Het juiste antwoord hierop was {{ som["resultaat"]
-          }}{% if som["type"] == "d" %}, rest {{
-          som["antwoord_rest"] }}{% endif %}.
-        </p>
-        <p>
-          Jij gaf als antwoord {{ som["antwoord"] }}{% if
-          som["type"] == "d" %}, rest {{
-          som["antwoord_rest"] }}{% endif %}.
-        </p>
-      </blockquote>
-    </div>
-  </div>
-  <br />
-
-  {% endfor %}
+    {% endblock %}
 </div>
-
-{% endblock %}
