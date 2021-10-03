@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
-<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+<section class="bg-dark text-light p-3 p-lg-0 pt-lg-3 text-center text-sm-start">
     <div class="container">
         <div class="d-sm-flex align-d-items-center justify-content-between">
             <div>
@@ -9,13 +9,13 @@
                 <p class="lead my-4">Oefen je rekenvaardigheden met deze quiz. Leer vermenigvuldigen, delen, optellen en
                     aftrekken als een
                     echte topper!</p>
-                <a href="#name-input" class="btn btn-primary btn-lg">Start Quiz</a>
+                <a href="#name-input" class="btn btn-primary btn-lg" tabindex="1">Start Quiz</a>
             </div>
             <img class="img-fluid w-50 d-none d-sm-block" src="/static/math-showcase.png" alt="">
         </div>
     </div>
 </section>
-<section class="bg-success text-light p-5">
+<section class="bg-success text-light p-4">
     <form method="POST">
     <div class="container">
         <div class="d-md-flex justify-content-between align-items-center">
@@ -24,9 +24,9 @@
             <div class="input-group mb-3 name-input">
                 
                 <input type="text" class="form-control" placeholder="Naam" aria-label="Naam" name="naam"
-                    aria-describedby="basic-addon2" id="name-input" required>
+                    aria-describedby="basic-addon2" id="name-input" required tabindex="2">
                 <div class="input-group-append">
-                    <button class="btn btn-dark btn-lg" type="submit">Beginnen</button>
+                    <button class="btn btn-dark btn-lg" type="submit" tabindex="3">Beginnen</button>
                 </div>
             
             </div>

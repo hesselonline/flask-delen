@@ -6,7 +6,7 @@ from flask_bootstrap import Bootstrap
 import os
 import time
 from utils.flash import flash_som_resultaat
-from utils.forms import QuizForm, ExerciseForm
+from utils.avatar import give_avatar
 
 SECRET_KEY = os.urandom(32)
 
@@ -33,20 +33,19 @@ def quiz():
     except(KeyError):
         return redirect(url_for("index"))
 
-    form = QuizForm()
-    if form.validate_on_submit():
-        session["aantal"] = form.aantal.data
+    if request.method == "POST":
+        session["aantal"] = int(request.form.get("aantal"))
         session["i"] = 0
         session["avatar"] = None
         session["sommen"] = genereer_sommen(
-            form.aantal.data, form.som_type.data, form.som_difficulty.data
+            int(request.form.get("aantal")), request.form.get("som_type"), request.form.get("som_difficulty")
         )
         session["start_tijd"] = time.time()
         session["eind_tijd"] = None
         return redirect(url_for("exercise"))
 
     return render_template(
-        "quiz.html", page="quiz", naam=session["naam"], form=form, aantal_goed=0
+        "quiz.html", page="quiz", naam=session["naam"], aantal_goed=0
     )
 
 
@@ -99,18 +98,17 @@ def exercise():
     sommen = session["sommen"]
     sommen_goed = [ses for ses in session["sommen"] if ses["antwoord_correct"]]
 
-    form = ExerciseForm()
-    if form.validate_on_submit():
-        sommen[i]["antwoord"] = form.antwoord.data
-        sommen[i]["antwoord_rest"] = form.rest.data
+    if request.method == "POST":
+        sommen[i]["antwoord"] = int(request.form.get("antwoord"))
+        sommen[i]["antwoord_rest"] = int(request.form.get("rest") or 0)
         sommen[i]["antwoord_correct"] = controleer_som(
-            sommen[i], form.antwoord.data, form.rest.data
+            sommen[i], int(request.form.get("antwoord")), int(request.form.get("rest") or 0)
         )
 
         if sommen[i]["antwoord_correct"]:
-            session["avatar"] = "happy"
+            session["avatar"] = give_avatar("happy")
         else:
-            session["avatar"] = "angry"
+            session["avatar"] = give_avatar("angry")
 
         flash_som_resultaat(
             sommen[i]["antwoord_correct"],
@@ -130,7 +128,6 @@ def exercise():
     return render_template(
         "exercise.html",
         page="exercise",
-        form=form,
         som=sommen[i],
         naam=naam,
         aantal=aantal,

@@ -2,38 +2,41 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% include "dino_background_style.html" %}
 {% block content %}
-<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+<section class="bg-dark text-light p-3 p-lg-0 pt-lg-3 text-center text-sm-start">
     <div class="container">
         <div class="d-sm-flex align-d-items-center justify-content-between">
             <div>
-                <form method="post">
-                <h1>Hoi <span class="text-warning">{{ naam }}</span>, start nu met rekenen!</h1>               
+                <h1>Hoi <span class="text-warning">{{ naam }}</span>, start nu met rekenen!</h1>
+                <p class="lead my-4">Kies hieronder tussen delen, tafels en plus/min sommen.</p>
             </div>
-            {{ wtf.form_field(form.submit, class="btn btn-primary btn-lg mb-5", tabindex="5")}}
         </div>
     </div>
 </section>
-<br>
-<br>
-    <div class="d-md-flex align-items-center justify-content-center">
-        <div class="col-md-4">
-            
-                {{ form.hidden_tag()}}
-                {{ wtf.form_field(form.aantal, class='form-control', tabindex="1")}}
-                <br>
-                {{ wtf.form_field(form.som_type, class='form-control', tabindex="2")}}
-                <br>
-                {{ wtf.form_field(form.som_difficulty, class='form-control', tabindex="3")}}
-                <br>
-                
-                   
-               
-            </form>
+<section class="bg-success text-light p-4">
+    <form method="POST">
+        <div class="container">
+            <div class="d-md-flex justify-content-between align-items-center">
+                <h3 class="mb-0 mb-md-0">Wat wil je spelen?</h3>
+                <div class="input-group quiz-input">
+                    <select class="form-control text-secondary" id="som_difficulty" name="som_type" autofocus tabindex="1">
+                        <option value="d">Delen</option>
+                        <option value="m">Tafels</option>
+                        <option value="s_a">Plus en Min</option>
+                    </select>
+                    <select class="form-control text-secondary" id="som_difficulty" name="som_difficulty" tabindex="2">
+                        <option value="1">Level 1</option>
+                        <option value="2">Level 2</option>
+                        <option value="3">Level 3</option>
+                    </select>
+                    <input type="number" class="form-control" placeholder="Aantal" name="aantal" required min=0 tabindex="3">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark btn-lg" type="submit" tabindex="4">Beginnen</button>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    
-</div>
-
-
-
+    </form>
+</section>
 
 {% endblock %}

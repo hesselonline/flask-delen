@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 {% include "dino_background_style.html" %}
-<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+<section class="bg-dark text-light p-3 p-lg-0 pt-lg-3 text-center text-sm-start">
     <div class="container">
         <div class="d-sm-flex align-d-items-center justify-content-between">
             <div>
@@ -31,9 +31,9 @@
                 </button>
             </h2>
             <div id="SomG{{som['id']}}" class="accordion-collapse collapse" data-bs-parent="#accordionGood">
-                <div class="accordion-body">Jij gaf als antwoord {{ som["antwoord"] }}{% if
-                    som["antwoord_rest"] %}, rest {{
-                    som["antwoord_rest"] }}{% endif %}. Dat was het juiste antwoord!</div>
+                <div class="accordion-body"><strong>Jij gaf als antwoord {{ som["antwoord"] }}{% if
+                        som["antwoord_rest"] %}, rest {{
+                        som["antwoord_rest"] }}{% endif %}.</strong> Dat was het juiste antwoord!</div>
             </div>
         </div>
 
@@ -52,7 +52,7 @@
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#SomF{{som['id']}}">
                     <div class="container pl-4">
-                        Goed: {{ som["teller"] }} {{som["tekst"]}} {{ som["noemer"]
+                        Fout: {{ som["teller"] }} {{som["tekst"]}} {{ som["noemer"]
                         }}</div> <span class="badge bg-danger m-2">Fout</span>
                 </button>
             </h2>
@@ -60,7 +60,7 @@
                 <div class="accordion-body"><strong>Het juiste antwoord hierop was {{ som["resultaat"]
                         }}{% if som["rest"] %}, rest {{
                         som["rest"] }}{% endif %}.</strong> Jij gaf als antwoord {{ som["antwoord"] }}{% if
-                    som["antwoord_rest"] == "d" %}, rest {{
+                    som["antwoord_rest"] %}, rest {{
                     som["antwoord_rest"] }}{% endif %}.</div>
             </div>
         </div>

@@ -1,8 +1,7 @@
 {% extends "base.html" %} {% import "bootstrap/wtf.html" as
 wtf %}
-{% include "dino_background_style.html" %}
 {% block content %}
-<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+<section class="bg-dark text-light p-3 p-lg-0 pt-lg-3 text-center text-sm-start">
     <div class="container">
         <div class="d-sm-flex align-d-items-center justify-content-between">
             <div>
@@ -10,53 +9,45 @@ wtf %}
                     <h1>Hoi {{ naam }}, hoeveel is <span class="text-warning"> {{som["teller"]}}
                             {{som["tekst"]}}
                             {{som["noemer"]}}?</span></h1>
-
             </div>
-
-            <form method="post">
+            {% for mess in
+                get_flashed_messages(True) %} {% if mess[0] == "success" %}
+                <div class="alert alert-success fade show" role="alert">
+                    {{mess[1]}}
+                  </div>
+                    {% else %}
+                    <div class="alert alert-danger fade show" role="alert">
+                        {{mess[1]}}
+                      </div>
+                        {% endif %}
+                    </div>
+                </div>  
+                    {% endfor %}
+            
         </div>
-        <div class="progress">
+        <div class="progress" style="height: 5px;">
             <div class="progress-bar bg-primary" role="progressbar" {{'style=width:' +percentage_style + '%' }}></div>
         </div>
         <br>
     </div>
 </section>
-{% for mess in
-get_flashed_messages(True) %} {% if mess[0] == "success" %}
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    {% else %}
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {% endif %}
-        <button type="button" class="fade close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        {{mess[1]}}
-    </div>
-    {% endfor %}
-    <section class="p-5">
+<section class="bg-success text-light p-4">
+    <form method="POST">
         <div class="container">
-            <div class="row text-center">
-                <div class="col-md">
-                </div>
-                <div class="col-md px-8">
-                    <div class="card mx-5" style="height: 15rem;">
-                        <div class="card-body text-center">
-                            {{ form.hidden_tag()}} {{
-                            wtf.form_field(form.antwoord, class='form-control',
-                            autofocus=true, size=30)}}
-                            <br />
-                            {% if som["type"] == "d" %} {{
-                            wtf.form_field(form.rest, class='form-control', size=30)}}
-                            {% endif %}
-                            <br>
-                            {{ wtf.form_field(form.submit, class="btn btn-primary btn-lg mb-5", tabindex="5")}}
-                            </form>
-                        </div>
+            <div class="d-md-flex justify-content-between align-items-center">
+                <h3 class="mb-0 mb-md-0">Geef je antwoord</h3>
+                <div class="input-group exercise-input">
+                    <input type="number" class="form-control" placeholder="Antwoord" name="antwoord" required min=0 autofocus tabindex="1">
+                    {% if som["type"] == "d" %}
+                    <input type="number" class="form-control" placeholder="Rest" name="rest" min=0 tabindex="2">
+                    {% endif %}
+                    <div class="input-group-append">
+                    <button class="btn btn-dark btn-lg" type="submit" tabindex="3">Controleer</button>
                     </div>
                 </div>
             </div>
-        </div>
-
-</div>
+    </form>
+</section>
+{% include "dino_background_style.html" %}
 
 {% endblock %}

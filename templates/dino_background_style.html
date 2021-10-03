@@ -1,38 +1,16 @@
-{% if avatar %}
-
-{% if avatar == "happy" %}
-<style>
-    body {
-        background: url('static/happy_stego.png') no-repeat left 30px bottom 30px fixed, url('/static/footer_website.png') no-repeat center bottom fixed;
-    }
-</style>
-
-{% elif avatar == "angry" %}
-<style>
-    body {
-        background: url('static/angry_trex.png') no-repeat left 30px bottom 30px fixed, url('/static/footer_website.png') no-repeat center bottom fixed;
-    }
-</style>
-
-{% endif %}
-
-{% else %}
-
-{% if page == "credits" %}
-
-<style>
-    body {
-        background: url('static/angry_trex.png') no-repeat left bottom 30px fixed, url('static/happy_stego.png') no-repeat right bottom 30px fixed, url('/static/footer_website.png') no-repeat center bottom fixed;
-    }
-</style>
-{% else %}
-
 <style>
     body {
         background: url('/static/footer_website.png') no-repeat center bottom fixed;
     }
 </style>
+{% if avatar %}
 
-{% endif %}
+<section>
+    <div class="row d-flex justify-content-center fixed-bottom">
+        <div class="col-md-6" >
+            <img class="img-fluid d-none d-sm-block" src={{avatar}} alt="">
+        </div>
+    </div>
+</section>
 
 {% endif %}

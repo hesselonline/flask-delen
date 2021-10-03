@@ -18,7 +18,7 @@ class Som:
         self.tekst = tekst_translate[som_type]
         self.resultaat = bereken_resultaat(teller, noemer, som_type)
         self.rest = bereken_rest(teller, noemer, som_type)
-        self.id = str(teller)+'_'+str(noemer)
+        self.id = str(teller) + "_" + str(noemer)
 
 
 def bereken_resultaat(teller, noemer, som_type):
@@ -90,27 +90,29 @@ def genereer_sommen(aantal, som_type, som_difficulty):
                 return random.choice(["s", "a"])
             else:
                 return som_type
-        
+
         teller = random.randint(
-                difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
-                    "min"
-                ],
-                difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
-                    "max"
-                ],
-            )
+            difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
+                "min"
+            ],
+            difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
+                "max"
+            ],
+        )
         noemer = random.randint(
-                difficulty_translate[som_type_rand(som_type)][som_difficulty]["noemer"][
-                    "min"
-                ],
-                min(teller,difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
+            difficulty_translate[som_type_rand(som_type)][som_difficulty]["noemer"][
+                "min"
+            ],
+            min(
+                teller,
+                difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
                     "max"
-                ])
-            )
+                ],
+            ),
+        )
 
         som = Som(
-            teller
-            ,
+            teller,
             noemer,
             som_type_rand(som_type),
         ).__dict__
@@ -123,5 +125,9 @@ def genereer_sommen(aantal, som_type, som_difficulty):
 
 def controleer_som(som: dict, antwoord: int, antwoord_rest: int = None):
     return som["resultaat"] == antwoord and (
-        (antwoord_rest == None and som["rest"] == 0) or antwoord_rest == som["rest"]
+        (
+            (antwoord_rest == None or antwoord_rest == 0)
+            and (som["rest"] == 0 or som["rest"] == None)
+        )
+        or antwoord_rest == som["rest"]
     )
