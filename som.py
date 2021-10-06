@@ -105,7 +105,7 @@ def genereer_sommen(aantal, som_type, som_difficulty):
             ],
             min(
                 teller,
-                difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
+                difficulty_translate[som_type_rand(som_type)][som_difficulty]["noemer"][
                     "max"
                 ],
             ),
