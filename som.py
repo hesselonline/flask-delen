@@ -3,10 +3,10 @@ import random
 
 
 class Som:
-    def __init__(self, teller, noemer, som_type="d", som_difficulty="3"):
+    def __init__(self, i, teller, noemer, som_type="d", som_difficulty="3"):
         """Create new instance of sum and calculate answer."""
 
-        tekst_translate = {"d": "÷", "s": "-", "a": "+", "m": "x"}
+        tekst_translate = {"d": "÷", "s": "-", "a": "+", "m": "x", "dd": "÷"}
 
         self.teller = teller
         self.noemer = noemer
@@ -18,12 +18,14 @@ class Som:
         self.tekst = tekst_translate[som_type]
         self.resultaat = bereken_resultaat(teller, noemer, som_type)
         self.rest = bereken_rest(teller, noemer, som_type)
-        self.id = str(teller) + "_" + str(noemer)
+        self.id = i
 
 
 def bereken_resultaat(teller, noemer, som_type):
     if som_type == "d":
         return int(floor(teller / noemer))
+    if som_type == "dd":
+        return teller / noemer
     if som_type == "s":
         return int(teller - noemer)
     if som_type == "a":
@@ -52,6 +54,17 @@ def genereer_sommen(aantal, som_type, som_difficulty):
             "3": {
                 "teller": {"min": 1000, "max": 10000},
                 "noemer": {"min": 10, "max": 100},
+            },
+        },
+        "dd": {
+            "1": {"teller": {"min": 0.0, "max": 20.0}, "noemer": {"min": 1.0, "max": 10.0}},
+            "2": {
+                "teller": {"min": 0.0, "max": 20.0},
+                "noemer": {"min": 1.0, "max": 100.0},
+            },
+            "3": {
+                "teller": {"min": 0.0, "max": 50.0},
+                "noemer": {"min": 1.0, "max": 1000.0},
             },
         },
         "m": {
@@ -91,34 +104,69 @@ def genereer_sommen(aantal, som_type, som_difficulty):
             else:
                 return som_type
 
-        teller = random.randint(
-            difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
-                "min"
-            ],
-            difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
-                "max"
-            ],
-        )
-        noemer = random.randint(
-            difficulty_translate[som_type_rand(som_type)][som_difficulty]["noemer"][
-                "min"
-            ],
-            min(
-                teller,
+        if som_type == "dd":
+
+            noemer = round(
+                random.uniform(
+                    difficulty_translate[som_type_rand(som_type)][som_difficulty][
+                        "noemer"
+                    ]["min"],
+                    difficulty_translate[som_type_rand(som_type)][som_difficulty][
+                        "noemer"
+                    ]["max"],
+                ),
+                2,
+            )
+            teller = (
+                round(
+                    (
+                        random.uniform(
+                            difficulty_translate[som_type_rand(som_type)][
+                                som_difficulty
+                            ]["teller"]["min"],
+                            difficulty_translate[som_type_rand(som_type)][
+                                som_difficulty
+                            ]["teller"]["max"],
+                        )
+                    ),
+                    2,
+                )
+                * noemer
+            )
+
+        else:
+
+            teller = random.randint(
+                difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
+                    "min"
+                ],
                 difficulty_translate[som_type_rand(som_type)][som_difficulty]["teller"][
                     "max"
                 ],
-            ),
-        )
+            )
+            noemer = random.randint(
+                difficulty_translate[som_type_rand(som_type)][som_difficulty]["noemer"][
+                    "min"
+                ],
+                min(
+                    teller,
+                    difficulty_translate[som_type_rand(som_type)][som_difficulty][
+                        "noemer"
+                    ]["max"],
+                ),
+            )
 
         som = Som(
+            i,
             teller,
             noemer,
             som_type_rand(som_type),
         ).__dict__
-        som_lijst.append(som)
+        
 
-        i += 1
+        if teller == round(teller, 4):
+            som_lijst.append(som)
+            i += 1
 
     return som_lijst
 

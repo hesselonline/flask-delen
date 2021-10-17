@@ -99,10 +99,10 @@ def exercise():
     sommen_goed = [ses for ses in session["sommen"] if ses["antwoord_correct"]]
 
     if request.method == "POST":
-        sommen[i]["antwoord"] = int(request.form.get("antwoord"))
+        sommen[i]["antwoord"] = float(request.form.get("antwoord"))
         sommen[i]["antwoord_rest"] = int(request.form.get("rest") or 0)
         sommen[i]["antwoord_correct"] = controleer_som(
-            sommen[i], int(request.form.get("antwoord")), int(request.form.get("rest") or 0)
+            sommen[i], float(request.form.get("antwoord")), int(request.form.get("rest") or 0)
         )
 
         if sommen[i]["antwoord_correct"]:
